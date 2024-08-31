@@ -4,6 +4,7 @@ from config.database import database
 from models.comodo import ComodoDB
 from models.residencia import ResidenciaDB
 
+
 class DispositivoDB(Model):
     id = AutoField()
     nome = CharField()

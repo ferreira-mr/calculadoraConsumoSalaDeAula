@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from schemas.dispositivos import DispositivoCreate, DispositivoRead
+from schemas.dispositivos import DispositivoRead
 
 
 class ComodoCreate(BaseModel):
@@ -16,7 +16,7 @@ class ComodoRead(BaseModel):
     id: int
     nome: str
     residencia_id: int
-    eletrodomesticos: list[DispositivoRead] = []
+    dispositivos: list[DispositivoRead] = []
 
     class Config:
         from_attributes = True

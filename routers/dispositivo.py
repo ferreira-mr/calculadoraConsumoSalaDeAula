@@ -1,28 +1,31 @@
 from fastapi import APIRouter
 
-
-from schemas.dispositivos import DispositivoRead, DispositivoCreate, DispositivoUpdate
 from models.dispositivo import DispositivoDB
+from schemas.dispositivos import (DispositivoCreate, DispositivoRead,
+                                  DispositivoUpdate)
+
+router = APIRouter(prefix='/dispositivos', tags=['DISPOSITIVOS'])
 
 
-router = APIRouter(prefix="/dispositivos", tags=["DISPOSITIVOS"])
-
-@router.post("/", response_model=DispositivoRead)
+@router.post(path='', response_model=DispositivoRead)
 def criar_dispositivo(novo_dispositivo: DispositivoCreate):
-    dispositivo = DispositivoDB(**novo_dispositivo.model_dump())
+    dispositivo = DispositivoDB.create(**novo_dispositivo.model_dump())
     return dispositivo
 
-@router.get("/", response_model=list[DispositivoRead])
+
+@router.get(path='', response_model=list[DispositivoRead])
 def listar_dispositivos():
     dispositivos = DispositivoDB.select()
     return dispositivos
 
-@router.get("/{id}", response_model=DispositivoRead)
+
+@router.get(path='/{id}', response_model=DispositivoRead)
 def listar_dispositivo(id: int):
     dispositivo = DispositivoDB.get_or_none(DispositivoDB.id == id)
     return dispositivo
 
-@router.put("/{id}", response_model=DispositivoRead)
+
+@router.patch(path='/{id}', response_model=DispositivoRead)
 def atualizar_dispositivo(id: int, dispositivo_autualizado: DispositivoUpdate):
     dispositivo = DispositivoDB.get_or_none(DispositivoDB.id == id)
     dispositivo.nome = dispositivo_autualizado.nome
@@ -31,10 +34,9 @@ def atualizar_dispositivo(id: int, dispositivo_autualizado: DispositivoUpdate):
     dispositivo.save()
     return dispositivo
 
-@router.delete("/{id}", response_model=DispositivoRead)
+
+@router.delete(path='/{id}', response_model=DispositivoRead)
 def eliminar_dispositivo(id: int):
     dispositivo = DispositivoDB.get_or_none(DispositivoDB.id == id)
     dispositivo.delete_instance()
     return dispositivo
-
-
