@@ -7,13 +7,21 @@ def startup_db():
     database.connect()
 
     from models.bandeira import BandeiraDB
-    from models.comodo import ComodoDB
+    from models.dependencia import DependenciaDB
     from models.dispositivo import DispositivoDB
-    from models.residencia import ResidenciaDB
-    from models.tipo import TipoDB
+    from models.tipo_consumidor import TipoConsumidorDB
+    from models.tipo_dispositivo import TipoDispositivoDB
+    from models.unidade_consumidora import UnidadeConsumidoraDB
 
     database.create_tables(
-        [ResidenciaDB, BandeiraDB, ComodoDB, DispositivoDB, TipoDB]
+        [
+            UnidadeConsumidoraDB,
+            BandeiraDB,
+            DependenciaDB,
+            DispositivoDB,
+            TipoConsumidorDB,
+            TipoDispositivoDB,
+        ]
     )
 
 

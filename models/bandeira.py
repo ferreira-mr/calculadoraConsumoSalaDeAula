@@ -1,11 +1,11 @@
-from peewee import AutoField, FloatField, IntegerField, Model
+from peewee import AutoField, CharField, FloatField, Model
 
 from config.database import database
 
 
 class BandeiraDB(Model):
     id = AutoField()
-    tipo = IntegerField(choices=[1, 2, 3, 4])
+    nome = CharField()
     tarifa = FloatField()
 
     class Meta:

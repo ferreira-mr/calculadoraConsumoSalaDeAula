@@ -3,9 +3,9 @@ from peewee import AutoField, CharField, Model
 from config.database import database
 
 
-class ResidenciaDB(Model):
+class TipoDispositivoDB(Model):
     id = AutoField()
-    proprietario = CharField()
+    nome = CharField()
 
     class Meta:
         database = database
