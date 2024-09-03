@@ -7,15 +7,25 @@ from models.unidade_consumidora import UnidadeConsumidoraDB
 
 
 class DispositivoDB(Model):
-    id = AutoField()
-    nome = CharField()
-    consumo = DoubleField()
-    uso_diario = DoubleField()
-    tipo = ForeignKeyField(TipoDispositivoDB, backref='dispositivos')
-    dependencia = ForeignKeyField(DependenciaDB, backref='dispositivos')
+    id = AutoField(column_name='dispositivo_id')
+    nome = CharField(column_name='dispositivo_nome')
+    consumo = DoubleField(column_name='dispositivo_consumo')
+    uso_diario = DoubleField(column_name='dispositivo_uso_diario')
+    tipo = ForeignKeyField(
+        column_name='dispositivo_tipo_id',
+        model=TipoDispositivoDB,
+        backref='dispositivos')
+    dependencia = ForeignKeyField(
+        column_name='dispositivo_dependencia_id',
+        model=DependenciaDB,
+        backref='dispositivos'
+    )
     unidade_consumidora = ForeignKeyField(
-        UnidadeConsumidoraDB, backref='dispositivos'
+        column_name='dispositivo_unidade_consumidora_id',
+        model=UnidadeConsumidoraDB,
+        backref='dispositivos'
     )
 
     class Meta:
         database = database
+        table_name = 'dispositivos'
